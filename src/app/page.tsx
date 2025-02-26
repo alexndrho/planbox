@@ -1,9 +1,12 @@
 import Nav from "@/components/Nav";
+import ServerRedirectIfAuthenticated from "@/components/ServerRedirectIfAuthenticated";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <>
-      <Nav />
-    </>
+    <ServerRedirectIfAuthenticated>
+      <div className="container min-h-dvh mx-auto px-4">
+        <Nav />
+      </div>
+    </ServerRedirectIfAuthenticated>
   );
 }

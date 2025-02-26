@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import SessionProvider from "@/components/SessionProvider";
+import { getServerSession } from "next-auth";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -17,17 +19,19 @@ export const metadata: Metadata = {
   description: "Planbox is a project management tool.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="container min-h-dvh mx-auto px-4">{children}</div>
+        <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>
   );
