@@ -1,17 +1,10 @@
 "use client";
 
+import AppContainer from "@/components/AppContainer";
 import { useSession } from "next-auth/react";
 
 export default function Home() {
   const session = useSession();
 
-  return (
-    <div className="container min-h-dvh mx-auto px-4">
-      {session.data?.user && (
-        <div className="container min-h-dvh mx-auto px-4">
-          Good day {session.data.user.email}
-        </div>
-      )}
-    </div>
-  );
+  return <AppContainer user={session.data?.user}></AppContainer>;
 }
