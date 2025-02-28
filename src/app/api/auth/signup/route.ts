@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { hash } from "bcrypt";
+import { genSalt, hash } from "bcryptjs";
 import { userSignupInput } from "@/lib/validations/user";
 import { ZodError } from "zod";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
@@ -10,7 +10,8 @@ export async function POST(request: Request) {
   try {
     const { email, password } = userSignupInput.parse(await request.json());
 
-    const hashedPassword = await hash(password, 10);
+    const salt = await genSalt(10);
+    const hashedPassword = await hash(password, salt);
 
     await prisma.user.create({
       data: {

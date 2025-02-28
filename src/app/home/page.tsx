@@ -1,10 +1,8 @@
-"use client";
-
 import AppContainer from "@/components/AppContainer";
-import { useSession } from "next-auth/react";
+import { auth } from "@/lib/auth";
 
-export default function Home() {
-  const session = useSession();
+export default async function Home() {
+  const session = await auth();
 
-  return <AppContainer user={session.data?.user}></AppContainer>;
+  return <AppContainer user={session?.user}></AppContainer>;
 }
