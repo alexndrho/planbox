@@ -8,7 +8,6 @@ import Link from "next/link";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Card } from "@/components/ui/card";
 import AddBoxDialogContent from "@/components/AddBoxDialogContent";
-import AppContainer from "@/components/AppContainer";
 import { getBoxes } from "@/services/box";
 import { getPeriodOfDay } from "@/helpers/date";
 import { Plus } from "lucide-react";
@@ -29,7 +28,7 @@ export default function Home() {
   }, []);
 
   return (
-    <AppContainer user={session?.user}>
+    <>
       {periodOfDay ? (
         <h1 className="mb-10 text-3xl font-bold text-center">
           Good {periodOfDay}
@@ -72,6 +71,6 @@ export default function Home() {
           </Link>
         ))}
       </div>
-    </AppContainer>
+    </>
   );
 }
