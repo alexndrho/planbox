@@ -2,11 +2,13 @@
 
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { z } from "zod";
 import { toast } from "sonner";
 
 import queryClient from "@/lib/queryClient";
 import { addBox } from "@/services/box";
 import { SidebarInput } from "./ui/sidebar";
+import { boxInput } from "@/lib/validations/box";
 
 export interface AddBoxSidebarInputProps {
   onClose: () => void;
@@ -20,7 +22,9 @@ const AddBoxSidebarInput = React.forwardRef<
 
   const addBoxmutation = useMutation({
     mutationFn: async (name: string) => {
-      return await addBox(name);
+      const { name: parsedName } = boxInput.parse({ name });
+
+      return await addBox(parsedName);
     },
 
     onSuccess: (data) => {
@@ -33,7 +37,11 @@ const AddBoxSidebarInput = React.forwardRef<
     },
 
     onError: (error) => {
-      toast.error(error.message);
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
+      } else {
+        toast.error(error.message);
+      }
     },
   });
 
