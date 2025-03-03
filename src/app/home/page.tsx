@@ -63,7 +63,7 @@ export default function Home() {
           ))}
 
         {boxesData?.map((box) => (
-          <Link key={box.id} href={`/box/${box.id}`}>
+          <Link key={box.id} href={`/boxes/${box.id}`}>
             <Card className="aspect-square p-4 flex items-center justify-center">
               <p className="text-lg text-center overflow-hidden text-ellipsis">
                 {box.name}

@@ -149,7 +149,7 @@ export default function AppContainer({ children, user }: AppContainerProps) {
                 {boxesData?.map((box) => (
                   <SidebarMenuItem key={box.id}>
                     <SidebarMenuButton asChild>
-                      <Link href={`/box/${box.id}`}>
+                      <Link href={`/boxes/${box.id}`}>
                         <span>{box.name}</span>
                       </Link>
                     </SidebarMenuButton>
