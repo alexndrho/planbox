@@ -12,6 +12,18 @@ export async function getBoxes() {
   return data as Box[];
 }
 
+export async function getBox(id: string) {
+  const response = await fetch(`/api/boxes/${id}`);
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.errors[0].message);
+  }
+
+  return data as Box;
+}
+
 export async function addBox(name: string) {
   const response = await fetch("/api/boxes", {
     method: "POST",
@@ -47,3 +59,4 @@ export async function moveToTrashBox(id: string) {
 
   return data;
 }
+

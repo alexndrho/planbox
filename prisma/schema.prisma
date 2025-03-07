@@ -32,6 +32,21 @@ model Box {
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
+  Todo   Todo[]
 
   @@unique([userId, name])
+}
+
+model Todo {
+  id        String    @id @default(cuid())
+  todo      String
+  done      Boolean   @default(false)
+  deadline  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  box   Box    @relation(fields: [boxId], references: [id])
+  boxId String
+
+  @@unique([boxId, todo])
 }
