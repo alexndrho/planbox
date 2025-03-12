@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import Provider from "@/components/Provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { auth } from "@/lib/auth";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -32,7 +33,9 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Provider session={session}>{children}</Provider>
+        <Provider session={session}>
+          <TooltipProvider>{children}</TooltipProvider>
+        </Provider>
         <Toaster />
       </body>
     </html>

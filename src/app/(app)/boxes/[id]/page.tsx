@@ -18,22 +18,22 @@ export default function Box() {
   });
 
   return (
-    <>
+    <div className="h-full flex flex-col">
       {data ? (
         <h1 className="mb-10 text-3xl font-bold">{data?.name}</h1>
       ) : (
         <Skeleton className="mb-10 h-9 w-full max-w-96" />
       )}
 
-      <Tabs defaultValue="todo">
+      <Tabs defaultValue="todo" className="flex-1 flex flex-col">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="todo">Todo</TabsTrigger>
           <TabsTrigger value="notes">Notes</TabsTrigger>
         </TabsList>
 
         <TodoTab boxId={params.id} />
-        <NotesTab />
+        <NotesTab boxId={params.id} />
       </Tabs>
-    </>
+    </div>
   );
 }
