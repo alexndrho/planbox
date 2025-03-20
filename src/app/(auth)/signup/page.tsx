@@ -25,30 +25,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { userSignupInput } from "@/lib/validations/user";
+import { userLoginInput } from "@/lib/validations/user";
 import IError from "@/types/IError";
 import RedirectIfAuthenticated from "@/components/RedirectIfAuthenticated";
-
-const loginInput = userSignupInput
-  .extend({
-    confirmPassword: z.string(),
-  })
-  .superRefine(({ password, confirmPassword }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match",
-        path: ["confirmPassword"],
-      });
-    }
-  });
 
 export default function Signup() {
   const { push } = useRouter();
   const [isSigningup, setIsSigningup] = useState(false);
 
-  const form = useForm<z.infer<typeof loginInput>>({
-    resolver: zodResolver(loginInput),
+  const form = useForm<z.infer<typeof userLoginInput>>({
+    resolver: zodResolver(userLoginInput),
     defaultValues: {
       email: "",
       password: "",
@@ -56,7 +42,7 @@ export default function Signup() {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof loginInput>) => {
+  const onSubmit = async (data: z.infer<typeof userLoginInput>) => {
     setIsSigningup(true);
 
     const response = await fetch("/api/auth/signup", {

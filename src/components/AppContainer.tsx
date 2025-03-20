@@ -12,6 +12,7 @@ import {
   LogOut,
   MoreHorizontal,
   Plus,
+  Settings,
   Trash2,
   X,
 } from "lucide-react";
@@ -53,11 +54,19 @@ export default function AppContainer({ children, user }: AppContainerProps) {
   const boxNameInputRef = useRef<HTMLInputElement>(null);
   const [isAddBoxOpen, setIsAddBoxOpen] = useState(false);
 
-  const items = [
+  const mainMenuLinks = [
     {
       title: "Home",
       url: "/home",
       icon: Home,
+    },
+  ];
+
+  const menuLinks = [
+    {
+      title: "Settings",
+      url: "/settings",
+      icon: Settings,
     },
   ];
 
@@ -91,6 +100,15 @@ export default function AppContainer({ children, user }: AppContainerProps) {
                   align="start"
                   className="w-[--radix-popper-anchor-width]"
                 >
+                  {menuLinks.map((link, index) => (
+                    <DropdownMenuItem key={index} asChild>
+                      <Link href={link.url}>
+                        <link.icon />
+                        <span>{link.title}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+
                   <DropdownMenuItem onClick={() => signOut()}>
                     <LogOut />
                     <span>Log out</span>
@@ -105,13 +123,13 @@ export default function AppContainer({ children, user }: AppContainerProps) {
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
-                {items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={pathname === item.url}>
-                      <Link href={item.url}>
-                        <item.icon />
+                {mainMenuLinks.map((link) => (
+                  <SidebarMenuItem key={link.title}>
+                    <SidebarMenuButton asChild isActive={pathname === link.url}>
+                      <Link href={link.url}>
+                        <link.icon />
 
-                        <span>{item.title}</span>
+                        <span>{link.title}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

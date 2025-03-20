@@ -51,10 +51,20 @@ export const authConfig: NextAuthConfig = {
   ],
 
   callbacks: {
-    jwt({ token, user }) {
+    jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
       }
+
+      if (trigger === "update") {
+        if (session?.name) {
+          token.name = session.name;
+        }
+        if (session?.email) {
+          token.email = session.email;
+        }
+      }
+
       return token;
     },
     session({ session, token }) {

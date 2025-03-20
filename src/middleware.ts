@@ -7,4 +7,4 @@ export default auth((request) => {
   }
 });
 
-export const config = { matcher: ["/home(.*)", "/boxes(.*)"] };
+export const config = { matcher: ["/home(.*)", "/boxes(.*)", "/settings(.*)"] };
