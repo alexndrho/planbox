@@ -211,12 +211,14 @@ export default function AppContainer({ children, user }: AppContainerProps) {
         </SidebarContent>
       </Sidebar>
 
-      <div className="w-full">
+      <div className="w-full min-h-screen flex flex-col">
         <header className="px-6 py-2 flex items-center gap-4">
           <SidebarTrigger />
         </header>
 
-        <main className="mx-auto px-6 py-8 w-full max-w-4xl">{children}</main>
+        <main className="flex-1 mx-auto px-6 py-8 w-full max-w-4xl flex flex-col">
+          {children}
+        </main>
       </div>
     </SidebarProvider>
   );

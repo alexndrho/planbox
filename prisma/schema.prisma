@@ -33,6 +33,7 @@ model Box {
   user   User   @relation(fields: [userId], references: [id])
   userId String
   Todo   Todo[]
+  Note   Note?
 
   @@unique([userId, name])
 }
@@ -49,4 +50,14 @@ model Todo {
   boxId String
 
   @@unique([boxId, todo])
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  box   Box    @relation(fields: [boxId], references: [id])
+  boxId String @unique
 }
